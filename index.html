@@ -5,199 +5,257 @@
   <title>🎁 RANDOM BOX SLOTBANGJAGO 🎁</title>
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
   <style>
-    body {
-      background: linear-gradient(to right, #1A0000, #800000, #1A0000);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      min-height: 100vh;
-      margin: 0;
-      overflow-x: hidden;
-    }
-    .judul-keren {
-      font-size: 48px;
-      font-weight: 900;
-      text-shadow: 2px 2px 0 #000, 4px 4px 0 #000;
-      margin-top: 60px;
-    }
-    input, button {
-      padding: 10px 15px;
-      font-size: 16px;
-      margin: 5px;
-      border-radius: 5px;
-    }
-    .box-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      justify-content: center;
-      margin-top: 30px;
-    }
-    .box {
-      width: 120px;
-      height: 120px;
-      font-size: 70px;
-      color: white;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      transition: 0.3s;
-    }
-    .box:hover { transform: scale(1.2); }
-    .popup {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      display: none;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 250px;
-      z-index: 9999;
-    }
-    .popup-card {
-      background: white;
-      color: black;
-      padding: 25px 30px;
-      border-radius: 14px;
-      font-size: 24px;
-      font-weight: bold;
-      text-align: center;
-    }
-    .klaim-button {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #ffcc00;
-      color: black;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 8px;
-      margin-top: 15px;
-    }
+/* === CSS kamu tetap utuh === */
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to right, #1A0000, #800000, #1A0000);
+  font-family: 'Segoe UI', sans-serif;
+  color: #fff;
+  text-align: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+#tsparticles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  z-index: -1;
+}
+.banner-berjalan {
+  width: 100%;
+  background: #ffcc00;
+  color: black;
+  padding: 8px 0;
+  font-weight: bold;
+  font-size: 16px;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 9999;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+.judul-keren {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: white;
+  text-shadow: 2px 2px 0 #000, 4px 4px 0 #000, 6px 6px 10px rgba(0, 0, 0, 0.8);
+  margin-top: 80px;
+}
+.input-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+input, button {
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+}
+button:hover {
+  background: #ffaa00;
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+.wrapper { display: flex; justify-content: center; align-items: center; width: 100%; }
+.box-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-content: center;
+  align-content: center;
+}
+.box {
+  width: 150px; height: 150px;
+  background: transparent;
+  font-size: 90px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: 0.3s;
+}
+.box:hover { transform: scale(1.2) rotate(5deg); box-shadow: 0 0 15px #ffffff80; }
+.box.terbuka { background: gold; color: black; font-size: 28px; font-weight: bold; }
+.blink { animation: blink-animation 1s infinite; }
+@keyframes blink-animation { 0%,100%{background:#ffcc00;}50%{background:#ff0000;color:white;} }
+.popup {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 300px;
+  z-index: 9999;
+}
+.popup-card {
+  background: white;
+  color: black;
+  padding: 25px 30px;
+  border-radius: 14px;
+  font-size: 28px;
+  font-weight: bold;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  max-width: 320px;
+  width: 100vw;
+  text-align: center;
+}
+.klaim-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: #ffcc00;
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.3s;
+}
+.klaim-button:hover { background: #ffaa00; }
+#historyBox {
+  display: none;
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 500px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
   </style>
 </head>
 <body>
 
-<h1 class="judul-keren">🎁 RANDOM BOX PRIZE 🎁</h1>
-<div id="formPage">
-  <input type="text" id="nama" placeholder="USERNAME">
-  <input type="text" id="kode" placeholder="KODE TOKEN"><br>
-  <button onclick="spinStart()">🔒 <span id="btnText">MULAI VERIFIKASI</span></button>
+<audio id="sfxWin" src="https://assets.mixkit.co/sfx/preview/mixkit-winning-notification-2018.mp3"></audio>
+
+<div id="tsparticles"></div>
+<div class="banner-berjalan">
+  <marquee>🎁 SELAMAT DATANG DI RANDOM BOX SLOTBANGJAGO – SEMUA BOX BERHADIAH 🎁</marquee>
+</div>
+
+<h1 class="judul-keren">RANDOM BOX PRIZE</h1>
+
+<div id="formPage" class="input-wrapper" style="flex-direction:column;align-items:center;">
+  <input type="text" id="nama" placeholder="USERNAME" />
+  <input type="text" id="kode" placeholder="KODE TOKEN" />
+  <button id="btnVerifikasi" onclick="spinStart()">🔒 <span id="btnText">MULAI VERIFIKASI</span></button>
   <div id="hasil"></div>
 </div>
 
-<div id="boxPage" style="display:none;">
-  <div style="margin-bottom:10px;">
-    <button onclick="tampilkanHistory()">📜 CEK HISTORI</button>
-    <button onclick="kembali()">🔙 KEMBALI</button>
+<div id="boxPage" style="display:none;animation:fadeIn 0.5s ease;">
+  <div style="display:flex;justify-content:center;gap:10px;margin-bottom:20px;">
+    <button onclick="tampilkanHistoryGabungan()">📜 CEK HISTORI</button>
+    <button onclick="kembaliKeForm()">🔙 KEMBALI</button>
   </div>
-  <div id="boxArea" class="box-container"></div>
-  <div id="historyBox" style="display:none;"></div>
+  <div id="historyBox"></div>
+  <div class="wrapper">
+    <div class="box-container" id="boxArea">
+      <div class="box" onclick="pilihBox(this)">🎁</div>
+      <div class="box" onclick="pilihBox(this)">🎁</div>
+      <div class="box" onclick="pilihBox(this)">🎁</div>
+      <div class="box" onclick="pilihBox(this)">🎁</div>
+      <div class="box" onclick="pilihBox(this)">🎁</div>
+      <div class="box" onclick="pilihBox(this)">🎁</div>
+      <div class="box" onclick="pilihBox(this)">🎁</div>
+      <div class="box" onclick="pilihBox(this)">🎁</div>
+      <div class="box" onclick="pilihBox(this)">🎁</div>
+    </div>
+  </div>
 </div>
 
 <div id="popupHadiah" class="popup">
-  <div class="popup-card" id="popupContent"></div>
+  <div class="popup-card">
+    <div id="popupContent"></div>
+    <a href="https://t.me/+MYu2cG2rBPwzNGQ9" target="_blank" class="klaim-button">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" style="height:20px;margin-right:8px;">KLAIM BONUS DISINI
+    </a>
+  </div>
 </div>
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbx9-kv79wzrV4ZFWpODh1YXqnkpkiUt0qoNI61WbUSN-wxYFRjlEl-imsGp2v9krHhKsg/exec";
-let namaUser = "", kodeToken = "", sudahSpin = false;
+let namaUser="", kodeToken="", sudahSpin=false, hadiahUtama="", indexDipilih=-1;
 
 async function spinStart() {
   namaUser = document.getElementById("nama").value.trim();
   kodeToken = document.getElementById("kode").value.trim();
-  const btnText = document.getElementById("btnText");
   const hasil = document.getElementById("hasil");
-  if (!namaUser || !kodeToken) return alert("Isi nama & kode token dulu!");
+  if(!namaUser || !kodeToken){ hasil.innerHTML="⚠️ Isi username & kode dulu!"; return; }
 
-  btnText.innerText = "MEMPROSES...";
-  hasil.textContent = "⏳ Sedang verifikasi...";
-
-  const res = await fetch(API, {
-    method: "POST",
-    headers: {"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
-    body: new URLSearchParams({action:"cekdanpakaitoken", nama:namaUser, kode:kodeToken})
-  });
-  const json = await res.json();
-
-  if (json.status === "OK") {
-    hasil.textContent = "";
-    document.getElementById("formPage").style.display = "none";
-    document.getElementById("boxPage").style.display = "block";
-    generateBoxes();
-  } else {
-    hasil.textContent = "❌ " + (json.msg || "Kode tidak valid.");
-  }
+  hasil.innerHTML="⏳ Memproses...";
+  try {
+    const res = await fetch(API, {
+      method:"POST",
+      headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
+      body:new URLSearchParams({action:"cekdanpakaitoken",nama:namaUser,kode:kodeToken})
+    });
+    const data = await res.json();
+    if(data.status==="OK"){
+      hasil.innerHTML="";
+      document.getElementById("formPage").style.display="none";
+      document.getElementById("boxPage").style.display="block";
+    } else hasil.innerHTML="❌ "+(data.msg||"Token tidak valid!");
+  } catch(e){ hasil.innerHTML="⚠️ Error koneksi."; }
 }
 
-function generateBoxes() {
-  const area = document.getElementById("boxArea");
-  area.innerHTML = "";
-  for (let i=0;i<9;i++) {
-    const box = document.createElement("div");
-    box.className = "box";
-    box.innerHTML = "🎁";
-    box.onclick = ()=>pilihBox(box);
-    area.appendChild(box);
-  }
-}
-
-async function pilihBox(el) {
-  if (sudahSpin) return;
-  sudahSpin = true;
-
-  el.innerHTML = "⏳";
-  const hadiah = ["Rp2.000","Rp3.000","Rp5.000","Rp10.000","Rp20.000"];
-  const hasil = hadiah[Math.floor(Math.random()*hadiah.length)];
+async function pilihBox(el){
+  if(sudahSpin) return; sudahSpin=true;
+  const hadiahList=[3000,4000,5000,4000,5000,3000];
+  hadiahUtama=`Rp${hadiahList[Math.floor(Math.random()*hadiahList.length)].toLocaleString("id-ID")}`;
+  el.classList.add("terbuka","blink");
+  el.innerHTML=hadiahUtama;
+  document.getElementById("sfxWin").play();
 
   await fetch(API, {
     method:"POST",
     headers:{"Content-Type":"application/x-www-form-urlencoded;charset=UTF-8"},
-    body:new URLSearchParams({action:"simpanhasil", nama:namaUser, kode:kodeToken, status:hasil})
+    body:new URLSearchParams({action:"simpanhasil",nama:namaUser,kode:kodeToken,status:hadiahUtama})
   });
 
-  setTimeout(()=>{
-    el.style.background="gold";
-    el.style.color="black";
-    el.innerHTML=`🎉<br>${hasil}`;
-    tampilPopup(`Selamat ${namaUser}!<br>🎁 Kamu menang ${hasil}`);
-  },800);
+  document.getElementById("popupContent").innerHTML=`🎉 MENANG ${hadiahUtama}! 🎉<br><small>Screenshot & klaim di Telegram</small>`;
+  document.getElementById("popupHadiah").style.display="flex";
 }
 
-function tampilPopup(msg){
-  document.getElementById("popupContent").innerHTML = `
-    ${msg}
-    <br><a href="https://t.me/+MYu2cG2rBPwzNGQ9" target="_blank" class="klaim-button">KLAIM BONUS DISINI</a>
-  `;
-  document.getElementById("popupHadiah").style.display = "flex";
-  document.getElementById("popupHadiah").onclick = ()=>document.getElementById("popupHadiah").style.display="none";
+async function tampilkanHistoryGabungan(){
+  const user = document.getElementById("nama").value.trim();
+  const box = document.getElementById("historyBox");
+  if(!user){ box.style.display="block"; box.innerHTML="⚠️ Masukkan nama dulu!"; return; }
+
+  box.style.display="block"; box.innerHTML="⏳ Mengambil histori...";
+  try {
+    const res = await fetch(`${API}?action=ambilHistoriGabungan&nama=${encodeURIComponent(user)}`);
+    const data = await res.json();
+    if(!data || ((!data.member||[]).length===0 && (!data.fake||[]).length===0)){
+      box.innerHTML="⚠️ Tidak ada histori untuk nama ini."; return;
+    }
+    let html=`<h3>🎉 Pemenang Hari Ini</h3><ul style="text-align:left;">`;
+    (data.member||[]).forEach(r=>html+=`<li>🏆 <b>${r.nama}</b> menang <span style="color:gold;">${r.status}</span></li>`);
+    (data.fake||[]).forEach(t=>html+=`<li>${t}</li>`);
+    html+="</ul>";
+    box.innerHTML=html;
+  }catch(e){ box.innerHTML="⚠️ Gagal ambil histori."; }
 }
 
-async function tampilkanHistory(){
-  const historyBox = document.getElementById("historyBox");
-  historyBox.innerHTML = "⏳ Mengambil data...";
-  historyBox.style.display = "block";
-
-  const res = await fetch(`${API}?action=ambilHistoriGabungan&nama=${encodeURIComponent(namaUser)}`);
-  const data = await res.json();
-
-  if (!data.member?.length && !data.fake?.length) {
-    historyBox.innerHTML = "⚠️ Belum ada histori.";
-    return;
-  }
-
-  let html = "<h3>🎉 Riwayat Pemenang 🎉</h3><ul style='text-align:left'>";
-  data.member.forEach(r=>{ html += `<li>🏆 ${r.nama} - ${r.status}</li>`; });
-  data.fake.forEach(t=>{ html += `<li>${t}</li>`; });
-  html += "</ul>";
-  historyBox.innerHTML = html;
-}
-
-function kembali(){
+function kembaliKeForm(){
   document.getElementById("formPage").style.display="block";
   document.getElementById("boxPage").style.display="none";
   sudahSpin=false;
+  document.querySelectorAll(".box").forEach(b=>{
+    b.innerHTML="🎁"; b.classList.remove("terbuka","blink");
+  });
+  document.getElementById("popupHadiah").style.display="none";
 }
+
+document.getElementById("popupHadiah").addEventListener("click",e=>{
+  if(!e.target.closest(".popup-card")) document.getElementById("popupHadiah").style.display="none";
+});
 </script>
 </body>
 </html>
